@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<title>Superheroes App | Anasayfa</title>
+<style>
+    :root {
+        --input-placeholder-color: white;
+      }
+
+      input.form-control::placeholder {
+        color: var(--input-placeholder-color);
+      }
+</style>
+{% endblock style %}
+
+{% block body %}
+<h1 style="margin-top: 10px;" class="text-center">Superheroes APP</h1>
+
+<div style="margin-top: 15px;" class="container text-center">
+    <div class="row justify-content-center">
+        <div class="col-3">
+        </div>
+        <div class="col-6 bg-info">
+            <div class="row">                
+                <form action="/" class="d-flex" role="search", method="post">
+                    <input name="input_hero" class="form-control me-2 text-bg-dark" type="search" placeholder="Kahraman Ara" aria-label="Search">
+                    <button class="btn btn-success" type="submit">Ara</button>
+                </form>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                {% if error %}
+                    <p>{{error.capitalize()}}.</p>
+                {% endif %}
+
+                {% for hero in hero_info %}
+                    <div class="col-6 bg-success">
+
+                        <p style="margin-top: 10px;"><strong>Hero Name:  {{hero_info[hero]['hero_name']}} </strong></p>
+                        <p><strong>Hero Full Name:  {{hero_info[hero]['hero_full_name']}} </strong></p>
+                        <p>Hero Powerstats</p>
+                        <hr>
+                        {% for stat in hero_info[hero]['hero_powerstats'] %}
+                            <p> {{stat.capitalize()}} : {{hero_info[hero]['hero_powerstats'][stat]}} </p>
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-6 bg-danger">
+                        <img style="width: 100%;" src="{{hero_info[hero]['hero_image']['url']}}" alt="">
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock body %}
