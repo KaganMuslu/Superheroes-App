@@ -11,14 +11,16 @@ class SUP_User(db.Model, UserMixin):
 
 class SUP_Heroes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    hero_id = db.Column(db.Integer)
     name = db.Column(db.String)
     full_name = db.Column(db.String)
-    Intelligence = db.Column(db.Integer)
-    Strength = db.Column(db.Integer)
-    Speed = db.Column(db.Integer)
-    Durability = db.Column(db.Integer)
-    Power = db.Column(db.Integer)
-    Combat = db.Column(db.Integer)
+    image_url = db.Column(db.String)
+    intelligence = db.Column(db.Integer)
+    strength = db.Column(db.Integer)
+    speed = db.Column(db.Integer)
+    durability = db.Column(db.Integer)
+    power = db.Column(db.Integer)
+    combat = db.Column(db.Integer)
 
 
 class SUP_User_Heroes(db.Model):

@@ -28,15 +28,18 @@
               </li>
             </ul>
             {% if user.is_authenticated %}
+              <a href="/heroes">
+                <img style="margin-right:20px" src="/static/heroes_icon.png" alt="heroes" height="48" />
+              </a> 
               <a href="/account">
-                <img style="margin-left:20px" src="/static/acc_icon.png" alt="account" height="48" />
+                <img style="margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
               </a>              
               <a href="/logout">
-                <img style="margin-left:25px; margin-right:20px" src="/static/logout_icon.png" alt="logout" height="48" />
+                <img style="margin-right:20px" src="/static/logout_icon.png" alt="logout" height="48" />
               </a>
               {% else %}
               <a href="/account">
-                <img style="margin-left:20px; margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
+                <img style="margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
               </a> 
               {% endif %}
           </div>
