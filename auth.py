@@ -51,6 +51,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             flash('Kayıt Olundu!', category='success')
+            login_user(new_user, remember=True)
             return redirect(url_for('views.home'))
 
 

@@ -50,7 +50,7 @@ def heroes():
     return render_template('heroes.html', user=current_user, heroes=hero_list)
 
 
-@views.route('/hero_add/<hero_id>')
+@views.route('/hero_add/<hero_id>') #Yıldız Puanı ile Alma Sistemi Eklenecek!
 def hero_add(hero_id):
     req = requests.get(f'https://superheroapi.com/api/2689056404570124/{hero_id}').json()
     new_hero_db = SUP_Heroes(hero_id=hero_id, name = req['name'],
@@ -70,24 +70,39 @@ def hero_add(hero_id):
     return redirect(url_for('views.heroes'))
 
 
-@views.route('/random_heroes/<int:random_int>', methods=['GET','POST'])
+@views.route('/random_heroes/<int:random_int>')
 def random_heroes(random_int):
 
-    for x in range(random_int):
+    heroes_query = SUP_User_Heroes.query.filter_by(user_id=current_user.id).all()
+    hero_id_list = []
+
+    for hero in heroes_query:
+        hero_info = SUP_Heroes.query.filter_by(hero_id=hero.hero_id).first()
+        hero_id_list.append(hero_info.hero_id)
+
+    x = 0
+    while x < random_int:
         random_id = random.randint(1,731)
-        req = requests.get(f'https://superheroapi.com/api/2689056404570124/{random_id}').json()
-        new_hero_db = SUP_Heroes(hero_id=random_id, name = req['name'],
-                                    full_name = req['biography']['full-name'],
-                                    image_url = req['image']['url'],
-                                    intelligence = req['powerstats']['intelligence'],
-                                    strength = req['powerstats']['strength'],
-                                    speed = req['powerstats']['speed'],
-                                    durability = req['powerstats']['durability'],
-                                    power = req['powerstats']['power'],
-                                    combat = req['powerstats']['combat'])
-        db.session.add(new_hero_db)
-        new_hero_user = SUP_User_Heroes(user_id=current_user.id, hero_id=random_id)
-        db.session.add(new_hero_user)
+        if random_id not in hero_id_list:
+            req = requests.get(f'https://superheroapi.com/api/2689056404570124/{random_id}').json()
+            if req['powerstats']['intelligence'] != 'null' and req['powerstats']['strength'] != 'null' and req['powerstats']['speed'] != 'null' and req['powerstats']['durability'] != 'null' and req['powerstats']['power'] != 'null' and req['powerstats']['combat'] != 'null':
+                new_hero_db = SUP_Heroes(hero_id=random_id, name = req['name'],
+                                            full_name = req['biography']['full-name'],
+                                            image_url = req['image']['url'],
+                                            intelligence = req['powerstats']['intelligence'],
+                                            strength = req['powerstats']['strength'],
+                                            speed = req['powerstats']['speed'],
+                                            durability = req['powerstats']['durability'],
+                                            power = req['powerstats']['power'],
+                                            combat = req['powerstats']['combat'])
+                db.session.add(new_hero_db)
+                new_hero_user = SUP_User_Heroes(user_id=current_user.id, hero_id=random_id)
+                db.session.add(new_hero_user)
+                x += 1
+                hero_id_list.append(random_id)
+        else:
+            print(random_id)
+            print('Var lan bu hero!')
 
     db.session.commit()
 
@@ -102,21 +117,19 @@ def new_hero():
 
     hero_get_date = last_get_date.hero_get_date
     veri_utc = hero_get_date.replace(tzinfo=timezone.utc)
-    print(veri_utc)
 
     suanki_zaman_utc = datetime.now(timezone.utc)
-    print(suanki_zaman_utc)
 
     # Veri ile şu anki zaman arasındaki farkı hesaplama
     fark = suanki_zaman_utc - veri_utc
 
     # 2 saat çıkarma ve geriye kalan zamanı al
-    kalan_zaman = timedelta(hours=2) - fark
+    kalan_zaman = timedelta(minutes=15) - fark
     kalan_saatler = kalan_zaman.seconds // 3600
     kalan_dakikalar = (kalan_zaman.seconds // 60) % 60
 
     # Eğer fark 2 saatten az ise mesaj yazdırma
-    if fark <= timedelta(hours=2):
+    if fark <= timedelta(minutes=15):
         if kalan_saatler != 0:
             flash(f'Yeni karakter almaya {kalan_saatler} saat {kalan_dakikalar} dakika kaldı!', category='error')
         else:
@@ -125,7 +138,7 @@ def new_hero():
         return redirect(url_for('views.heroes'))
 
     else:
-        flash(f'Yeni Karakterler Hazır!', category='success') # yeni karakterlere badge new göster
+        flash(f'2 Yeni Karakter Hazır!', category='success') # yeni karakterlere badge new göster
         
         return redirect(url_for('views.random_heroes', random_int=2))
 
