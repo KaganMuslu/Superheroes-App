@@ -27,4 +27,5 @@ class SUP_User_Heroes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     hero_id = db.Column(db.Integer)
+    hero_get_date = db.Column(db.DateTime(), default=func.now())
 
