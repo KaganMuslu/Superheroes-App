@@ -31,4 +31,25 @@ def create_app():
     def load_user(id):
         return SUP_User.query.get(int(id))
 
+
+    def interpolate_color(start_color, end_color, percent):
+        start_r = int(start_color[0:2], 16)
+        start_g = int(start_color[2:4], 16)
+        start_b = int(start_color[4:6], 16)
+        
+        end_r = int(end_color[0:2], 16)
+        end_g = int(end_color[2:4], 16)
+        end_b = int(end_color[4:6], 16)
+        
+        interpolated_r = int(start_r - (start_r - end_r) * percent)
+        interpolated_g = int(start_g - (start_g - end_g) * percent)
+        interpolated_b = int(start_b - (start_b - end_b) * percent)
+        
+        interpolated_color = f'#{interpolated_r:02X}{interpolated_g:02X}{interpolated_b:02X}'
+        
+        return interpolated_color
+    
+    app.jinja_env.globals.update(interpolate_color=interpolate_color)
+
+
     return app

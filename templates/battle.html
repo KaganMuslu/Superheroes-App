@@ -7,34 +7,50 @@
     <div class="col-1"></div>
 
     <div class="col-10">
-      <h2>Kahramanlarım</h2>
+      <h2>Teamfight Seçim</h2>
       <br />
 
       {% if not heroes %}
         <a href="/first_five" class="btn btn-primary">İlk 5 Kahramanını Al!</a>
-      {% endif %}
+      {% else %}
 
-      <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center bg-info">
-        {% for hero in heroes %}
-        <div class="col">
-          <div class="card" style="width: 17rem">
-            <img src="{{hero.image_url}}" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">{{hero.name}}</h5>
-              <h6 class="card-text">{{hero.full_name}}</h6>
-              <hr />
-              <p class="card-text">Intelligence : {{hero.intelligence}}</p>
-              <p class="card-text">Strength : {{hero.strength}}</p>
-              <p class="card-text">Speed : {{hero.speed}}</p>
-              <p class="card-text">Durability : {{hero.durability}}</p>
-              <p class="card-text">Power : {{hero.power}}</p>
-              <p class="card-text">Combat : {{hero.combat}}</p>
-              <a href="#" class="btn btn-primary">X Factor</a>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
+        <table class="table table-sm table-success table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Image</th>
+              <th scope="col">Intelligence</th>
+              <th scope="col">Strength</th>
+              <th scope="col">Speed</th>
+              <th scope="col">Durability</th>
+              <th scope="col">Power</th>
+              <th scope="col">Combat</th>
+              <th scope="col">Teamfight</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+          {% for hero in heroes %}
+            <tr>
+              <th style="vertical-align: middle" scope="row">{{hero.name}}</th>
+              <td style="vertical-align: middle" >
+                <img style="width: 60px;" src="{{hero.image_url}}" alt="hero_image">
+              </td>
+              <td style="vertical-align: middle" ><div class="bg-gradient" style="background-color: {{ interpolate_color('a8c0d6', '294157', hero.intelligence/ 100) }}; display: inline-block; padding: 10px; border-radius: 10px; color: white;">{{hero.intelligence}}</div></td>
+              <td style="vertical-align: middle" ><div class="bg-gradient" style="background-color: {{ interpolate_color('a8c0d6', '294157', hero.strength/ 100) }}; display: inline-block; padding: 10px; border-radius: 10px; color: white;">{{hero.strength}}</div></td>
+              <td style="vertical-align: middle" ><div class="bg-gradient" style="background-color: {{ interpolate_color('a8c0d6', '294157', hero.speed/ 100) }}; display: inline-block; padding: 10px; border-radius: 10px; color: white;">{{hero.speed}}</div></td>
+              <td style="vertical-align: middle" ><div class="bg-gradient" style="background-color: {{ interpolate_color('a8c0d6', '294157', hero.durability/ 100) }}; display: inline-block; padding: 10px; border-radius: 10px; color: white;">{{hero.durability}}</div></td>
+              <td style="vertical-align: middle" ><div class="bg-gradient" style="background-color: {{ interpolate_color('a8c0d6', '294157', hero.power/ 100) }}; display: inline-block; padding: 10px; border-radius: 10px; color: white;">{{hero.power}}</div></td>
+              <td style="vertical-align: middle" ><div class="bg-gradient" style="background-color: {{ interpolate_color('a8c0d6', '294157', hero.combat/ 100) }}; display: inline-block; padding: 10px; border-radius: 10px; color: white;">{{hero.combat}}</div></td>
+              <td style="vertical-align: middle" >
+                <input type="checkbox" class="btn-check" id="btn-check-outlined{{hero.hero_id}}" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined{{hero.hero_id}}">Savaşa Ekle</label><br>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+      {% endif %}
     </div>
 
     <div class="col-1"></div>

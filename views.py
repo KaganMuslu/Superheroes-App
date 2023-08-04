@@ -171,6 +171,19 @@ def first_five():
     return redirect(url_for('views.random_heroes', random_int=5))
 
 
+@views.route('/battle')
+def battle():
+    
+    heroes_query = SUP_User_Heroes.query.filter_by(user_id=current_user.id).all()
+    hero_list = []
+
+    for hero in heroes_query:
+        hero_info = SUP_Heroes.query.filter_by(hero_id=hero.hero_id).first()
+        hero_list.append(hero_info)
+
+    return render_template('battle.html', user=current_user, heroes=hero_list)
+
+
 @views.route('/account')
 def account():
     return render_template('account.html', user=current_user)
