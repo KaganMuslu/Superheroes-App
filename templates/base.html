@@ -28,12 +28,15 @@
               </li>
             </ul>
             <div class="collapse navbar-collapse justify-content-center">
-              <h4 style="color:white" class="text-center">{{user.username}}</h4>
+              <h4 style="color:white;" class="text-center">{{user.username}}</h4>
             </div>
             {% if user.is_authenticated %}
+            <a href="/battle">
+              <img style="margin-right:20px" src="/static/battle_icon.png" alt="hero" height="48" />
+            </a>
             <a href="/new_hero">
               <img style="margin-right:20px" src="/static/hero_icon.png" alt="hero" height="48" />
-            </a> 
+            </a>
               <a href="/heroes">
                 <img style="margin-right:20px" src="/static/heroes_icon.png" alt="heroes" height="48" />
               </a> 

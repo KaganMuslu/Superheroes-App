@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block style %}
-<title>Superheroes App | Kahramanlarım</title>
+<title>Superheroes App | Savaş</title>
 {% endblock style %} {% block body %}
 
 <div style="margin-top: 15px" class="container text-center">
@@ -11,7 +11,7 @@
       <br />
 
       {% if not heroes %}
-        <a href="/first_five" class="btn btn-warning">İlk 5 Kahramanını Al!</a>
+        <a href="/first_five" class="btn btn-primary">İlk 5 Kahramanını Al!</a>
       {% endif %}
 
       <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center bg-info">

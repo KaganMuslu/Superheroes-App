@@ -115,32 +115,36 @@ def new_hero():
 
     last_get_date = SUP_User_Heroes.query.filter_by(user_id=current_user.id).order_by(SUP_User_Heroes.hero_get_date.desc()).first()
 
-    hero_get_date = last_get_date.hero_get_date
-    veri_utc = hero_get_date.replace(tzinfo=timezone.utc)
+    if last_get_date:
+        hero_get_date = last_get_date.hero_get_date
+        veri_utc = hero_get_date.replace(tzinfo=timezone.utc)
 
-    suanki_zaman_utc = datetime.now(timezone.utc)
+        suanki_zaman_utc = datetime.now(timezone.utc)
 
-    # Veri ile şu anki zaman arasındaki farkı hesaplama
-    fark = suanki_zaman_utc - veri_utc
+        # Veri ile şu anki zaman arasındaki farkı hesaplama
+        fark = suanki_zaman_utc - veri_utc
 
-    # 2 saat çıkarma ve geriye kalan zamanı al
-    kalan_zaman = timedelta(minutes=15) - fark
-    kalan_saatler = kalan_zaman.seconds // 3600
-    kalan_dakikalar = (kalan_zaman.seconds // 60) % 60
+        # 2 saat çıkarma ve geriye kalan zamanı al
+        kalan_zaman = timedelta(minutes=15) - fark
+        kalan_saatler = kalan_zaman.seconds // 3600
+        kalan_dakikalar = (kalan_zaman.seconds // 60) % 60
 
-    # Eğer fark 2 saatten az ise mesaj yazdırma
-    if fark <= timedelta(minutes=15):
-        if kalan_saatler != 0:
-            flash(f'Yeni karakter almaya {kalan_saatler} saat {kalan_dakikalar} dakika kaldı!', category='error')
+        # Eğer fark 2 saatten az ise mesaj yazdırma
+        if fark <= timedelta(minutes=15):
+            if kalan_saatler != 0:
+                flash(f'Yeni karakter almaya {kalan_saatler} saat {kalan_dakikalar} dakika kaldı!', category='error')
+            else:
+                flash(f'Yeni karakter almaya {kalan_dakikalar} dakika kaldı!', category='error')
+
+            return redirect(url_for('views.heroes'))
+
         else:
-            flash(f'Yeni karakter almaya {kalan_dakikalar} dakika kaldı!', category='error')
-
-        return redirect(url_for('views.heroes'))
-
+            flash(f'2 Yeni Karakter Hazır!', category='success') # yeni karakterlere badge new göster
+            
+            return redirect(url_for('views.random_heroes', random_int=2))
     else:
-        flash(f'2 Yeni Karakter Hazır!', category='success') # yeni karakterlere badge new göster
-        
-        return redirect(url_for('views.random_heroes', random_int=2))
+        flash('İlk Önce Başlangıç Karakterlerinizi Almalısınız!', category='error')
+        return redirect(url_for('views.heroes'))
 
 
 @views.route('/first_five')
