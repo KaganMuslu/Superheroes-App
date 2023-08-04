@@ -100,16 +100,20 @@ def random_heroes(random_int):
         if random_id not in hero_id_list:
             req = requests.get(f'https://superheroapi.com/api/2689056404570124/{random_id}').json()
             if req['powerstats']['intelligence'] != 'null' and req['powerstats']['strength'] != 'null' and req['powerstats']['speed'] != 'null' and req['powerstats']['durability'] != 'null' and req['powerstats']['power'] != 'null' and req['powerstats']['combat'] != 'null':
-                new_hero_db = SUP_Heroes(hero_id=random_id, name = req['name'],
-                                            full_name = req['biography']['full-name'],
-                                            image_url = req['image']['url'],
-                                            intelligence = req['powerstats']['intelligence'],
-                                            strength = req['powerstats']['strength'],
-                                            speed = req['powerstats']['speed'],
-                                            durability = req['powerstats']['durability'],
-                                            power = req['powerstats']['power'],
-                                            combat = req['powerstats']['combat'])
-                db.session.add(new_hero_db)
+                if not SUP_Heroes.query.filter_by(hero_id=random_id).first():
+                    new_hero_db = SUP_Heroes(hero_id=random_id, name = req['name'],
+                                                full_name = req['biography']['full-name'],
+                                                image_url = req['image']['url'],
+                                                intelligence = req['powerstats']['intelligence'],
+                                                strength = req['powerstats']['strength'],
+                                                speed = req['powerstats']['speed'],
+                                                durability = req['powerstats']['durability'],
+                                                power = req['powerstats']['power'],
+                                                combat = req['powerstats']['combat'])
+                    db.session.add(new_hero_db)
+                else:
+                    print('Bu çar zaten eklenmiş!')
+                    
                 new_hero_user = SUP_User_Heroes(user_id=current_user.id, hero_id=random_id)
                 db.session.add(new_hero_user)
                 x += 1

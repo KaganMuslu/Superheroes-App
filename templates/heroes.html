@@ -27,7 +27,11 @@
                   {% endif %}
                 {% endfor %}
               </h5>
-              <h6 class="card-text">{{hero.full_name}}</h6>
+              {% if hero.full_name %}
+                <h6 class="card-text">{{hero.full_name}}</h6>
+              {% else %}
+                <h6 class="card-title">{{hero.name}}</h6>
+              {% endif %}
               <hr />
               <p class="card-text">Intelligence : {{hero.intelligence}}</p>
               <p class="card-text">Strength : {{hero.strength}}</p>
