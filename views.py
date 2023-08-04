@@ -26,7 +26,6 @@ def home():
                 hero[result["id"]]['hero_powerstats'] = result["powerstats"]
                 hero[result["id"]]['hero_full_name'] = result["biography"]['full-name']
                 hero[result["id"]]['hero_image'] = result["image"]
-                print(hero)
 
             return render_template('index.html', hero_info=hero, user=current_user) 
         
@@ -46,8 +45,22 @@ def heroes():
         hero_info = SUP_Heroes.query.filter_by(hero_id=hero.hero_id).first()
         hero_list.append(hero_info)
 
-
     return render_template('heroes.html', user=current_user, heroes=hero_list)
+
+
+@views.route('/heroes/<new_heroes>')
+def heroes_new(new_heroes):
+    heroes_query = SUP_User_Heroes.query.filter_by(user_id=current_user.id).all()
+    hero_list = []
+
+    for hero in heroes_query:
+        hero_info = SUP_Heroes.query.filter_by(hero_id=hero.hero_id).first()
+        hero_list.append(hero_info)
+
+    new_heroes = list(new_heroes.strip('[]').split(', '))
+    new_heroes = [int(item) for item in new_heroes]
+
+    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=new_heroes)
 
 
 @views.route('/hero_add/<hero_id>') #Yıldız Puanı ile Alma Sistemi Eklenecek!
@@ -75,6 +88,7 @@ def random_heroes(random_int):
 
     heroes_query = SUP_User_Heroes.query.filter_by(user_id=current_user.id).all()
     hero_id_list = []
+    new_hero_id_list = []
 
     for hero in heroes_query:
         hero_info = SUP_Heroes.query.filter_by(hero_id=hero.hero_id).first()
@@ -100,13 +114,14 @@ def random_heroes(random_int):
                 db.session.add(new_hero_user)
                 x += 1
                 hero_id_list.append(random_id)
+                new_hero_id_list.append(random_id)
         else:
             print(random_id)
             print('Var lan bu hero!')
 
     db.session.commit()
 
-    return redirect(url_for('views.heroes'))
+    return redirect(url_for('views.heroes_new', new_heroes=new_hero_id_list))
 
 
 

@@ -17,10 +17,16 @@
       <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center bg-info">
         {% for hero in heroes %}
         <div class="col">
-          <div class="card" style="width: 17rem">
+          <div class="card h-100" style="width: 17rem">
             <img src="{{hero.image_url}}" class="card-img-top" alt="..." />
             <div class="card-body">
-              <h5 class="card-title">{{hero.name}}</h5>
+              <h5 class="card-title">{{hero.name}}
+                {% for id in new_heroes %}
+                  {% if id == hero.hero_id %}
+                    <span class="badge rounded-pill text-bg-danger">New</span>
+                  {% endif %}
+                {% endfor %}
+              </h5>
               <h6 class="card-text">{{hero.full_name}}</h6>
               <hr />
               <p class="card-text">Intelligence : {{hero.intelligence}}</p>
