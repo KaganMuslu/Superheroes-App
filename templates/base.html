@@ -31,25 +31,43 @@
               <h4 style="color:white;" class="text-center">{{user.username}}</h4>
             </div>
             {% if user.is_authenticated %}
-            <a href="/battle">
-              <img style="margin-right:20px" src="/static/battle_icon.png" alt="hero" height="48" />
-            </a>
-            <a href="/new_hero">
-              <img style="margin-right:20px" src="/static/hero_icon.png" alt="hero" height="48" />
-            </a>
-              <a href="/heroes">
-                <img style="margin-right:20px" src="/static/heroes_icon.png" alt="heroes" height="48" />
-              </a> 
-              <a href="/account">
-                <img style="margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
-              </a>              
-              <a href="/logout">
-                <img style="margin-right:20px" src="/static/logout_icon.png" alt="logout" height="48" />
+              <a href="/battle">
+                <div class="col text-center">
+                  <img style="margin-right:20px" src="/static/battle_icon.png" alt="battle" height="48" />
+                  <h6 class="text-center link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" style="margin-right:20px">Savaş</h6>
+                </div>
               </a>
+              <a href="/new_hero">
+                <div class="col text-center">
+                  <img style="margin-right:20px" src="/static/hero_icon.png" alt="new_hero" height="48" />
+                  <h6 class="text-center link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" style="margin-right:20px">Yeni Kahraman</h6>
+                </div>
+              </a>
+                <a href="/heroes">
+                <div class="col text-center">  
+                  <img style="margin-right:20px" src="/static/heroes_icon.png" alt="heroes" height="48" />
+                    <h6 class="text-center link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" style="margin-right:20px">Kahramanlar</h6>
+                </div>
+                </a>
+                <a href="/account">
+                <div class="col text-center">  
+                  <img style="margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
+                    <h6 class="text-center link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" style="margin-right:20px">Hesap</h6>
+                </div>
+                </a>
+                <a href="/logout">
+                <div class="col text-center">  
+                  <img style="margin-right:20px" src="/static/logout_icon.png" alt="logout" height="48" />
+                    <h6 class="text-center link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" style="margin-right:20px">Çıkış</h6>
+                </div>
+                </a>
               {% else %}
               <a href="/account">
-                <img style="margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
-              </a> 
+                <div class="col text-center">  
+                  <img style="margin-right:20px" src="/static/acc_icon.png" alt="account" height="48" />
+                    <h6 class="text-center link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" style="margin-right:20px">Hesap</h6>
+                </div>
+              </a>
               {% endif %}
           </div>
         </div>

@@ -183,6 +183,15 @@ def battle():
 
     return render_template('battle.html', user=current_user, heroes=hero_list)
 
+    
+    
+@views.route('/check_heroes', methods=['GET','POST'])
+def check_heroes():
+    check_heroes = request.form.getlist('checklist')
+    print(check_heroes)
+    
+    return redirect(url_for('views.heroes'))
+
 
 @views.route('/account')
 def account():
