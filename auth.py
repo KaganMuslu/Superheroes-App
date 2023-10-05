@@ -1,6 +1,6 @@
-from flask import render_template, url_for, redirect, Blueprint, request, flash
-from flask_login import current_user, login_user, logout_user
-from models import SUP_User
+from flask import url_for, redirect, Blueprint, request, flash
+from flask_login import login_user, logout_user
+from models import SUP_Users
 from app import db
 
 auth = Blueprint('auth', __name__)
@@ -11,7 +11,7 @@ def login():
         username = request.form.get('inputUsername')
         password = request.form.get('inputPassword')
 
-        user = SUP_User.query.filter_by(username=username).first()
+        user = SUP_Users.query.filter_by(username=username).first()
         if user:
             if user.password == password:
                 login_user(user, remember=True)
@@ -32,7 +32,7 @@ def register():
     if request.method == 'POST':
         username = request.form.get('inputUsernameNew')
         password = request.form.get('inputPasswordNew')
-        user = SUP_User.query.filter_by(username=username).first()
+        user = SUP_Users.query.filter_by(username=username).first()
 
         if user:
             flash('Bu Kullanıcı Adı Mevcut!', category='error')
@@ -47,7 +47,7 @@ def register():
             return redirect(url_for('views.account'))
         
         else:
-            new_user = SUP_User(username=username, password=password)
+            new_user = SUP_Users(username=username, password=password)
             db.session.add(new_user)
             db.session.commit()
             flash('Kayıt Olundu!', category='success')

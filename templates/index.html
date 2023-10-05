@@ -14,13 +14,14 @@
 {% endblock style %}
 
 {% block body %}
-<h1 style="margin-top: 10px;" class="text-center">Superheroes APP</h1>
+<h3 style="text-align: center; margin-top: 20px;">Superheroes Collection App</h3>
 
-<div style="margin-top: 15px;" class="container text-center">
+<div style="margin-top: 20px;" class="container text-center">
     <div class="row justify-content-center">
-        <div class="col-3">
+        <div class="col-2">
         </div>
-        <div class="col-6 bg-info">
+
+        <div class="col-8 bg-info">
             <div class="row">                
                 <form action="/" class="d-flex" role="search", method="post">
                     <input name="input_hero" class="form-control me-2 text-bg-dark" type="search" placeholder="Kahraman Ara" aria-label="Search">
@@ -28,32 +29,88 @@
                 </form>
             </div>
             <br>
-            <div class="row justify-content-center">
-                {% if error %}
-                    <p>{{error.capitalize()}}.</p>
-                {% endif %}
 
-                {% for hero in hero_info %}
-                    <div class="col-6 bg-success">
-
-                        <p style="margin-top: 10px;"><strong>Hero Name:  {{hero_info[hero]['hero_name']}} </strong></p>
-                        <p><strong>Hero Full Name:  {{hero_info[hero]['hero_full_name']}} </strong></p>
-                        <p>Hero Powerstats</p>
-                        <hr>
-                        {% for stat in hero_info[hero]['hero_powerstats'] %}
-                            <p> {{stat.capitalize()}} : {{hero_info[hero]['hero_powerstats'][stat]}} </p>
-                        {% endfor %}
+            <div class="row row-cols-1 row-cols-md-3 g-0 justify-content-center bg-info">
+                {% for hero in hero_results %}
+                <div class="card">
+                    <img src="{{hero.image}}"
+                    class="img-fluid rounded card-img-top" alt="...">
+                    <div class="card-body card border-success">
+                    <h5 class="card-title">{{hero.name}}</h5>
+                    {% if hero.full_name %}
+                        <h6 class="card-text">{{hero.full_name}}</h6>
+                    {% else %}
+                        <h6 class="card-title">{{hero.name}}</h6>
+                    {% endif %}
+                    
+                    <br>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <ul class="nav nav-pills d-none d-md-flex justify-content-evenly" id="myTabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="hero-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab" href="#hero-info{{hero.id}}">Hero Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="bio-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab" href="#bio-info{{hero.id}}">Bio Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="work-and-connection-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab"
+                            href="#work-and-connection-info{{hero.id}}">Work and Connections Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="stat-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab" href="#stat-info{{hero.id}}">Stat Info</a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div class="card-body card border-success">
+                        <div class="tab-content">
+                        <div class="tab-pane fade show active" id="hero-info{{hero.id}}">
+                            <!-- Hero Information Buraya Eklenir -->
+                            <p class="card-text"><strong>Gender: </strong>{{hero.app_gender}}</p>
+                            <p class="card-text"><strong>Race: </strong>{{hero.app_race}}</p>
+                            <p class="card-text"><strong>Height: </strong>{{hero.app_height}}</p>
+                            <p class="card-text"><strong>Weight: </strong>{{hero.app_weight}}</p>
+                            <p class="card-text"><strong>Eye Color: </strong>{{hero.app_eyeColor}}</p>
+                            <p class="card-text"><strong>Hair Color: </strong>{{hero.app_hairColor}}</p>
+                        </div>
+                        <div class="tab-pane fade" id="bio-info{{hero.id}}">
+                            <!-- Bio Information Buraya Eklenir -->
+                            <p class="card-text"><strong>Alter Egos: </strong>{{hero.bio_alterEgos}}</p>
+                            <p class="card-text"><strong>Aliases: </strong>{{hero.bio_aliases}}</p>
+                            <p class="card-text"><strong>Place of Birth: </strong>{{hero.bio_placeOfBirth}}</p>
+                            <p class="card-text"><strong>First Appearance: </strong>{{hero.bio_firstAppearance}}</p>
+                            <p class="card-text"><strong>Publisher: </strong>{{hero.bio_publisher}}</p>
+                            <p class="card-text"><strong>Alignment: </strong>{{hero.bio_alignment}}</p>
+                        </div>
+                        <div class="tab-pane fade" id="work-and-connection-info{{hero.id}}">
+                            <!-- Work Information Buraya Eklenir -->
+                            <p class="card-text"><strong>Work Occupation: </strong>{{hero.work_occupation}}</p>
+                            <p class="card-text"><strong>Work Base: </strong>{{hero.work_base}}</p>
+                            <p class="card-text"><strong>Group Affiliation: </strong>{{hero.con_groupAffiliation}}</p>
+                            <p class="card-text"><strong>Relatives: </strong>{{hero.con_relatives}}</p>
+                        </div>
+                        <div class="tab-pane fade" id="stat-info{{hero.id}}">
+                            <!-- Stat Information Buraya Eklenir -->
+                            <p class="card-text"><strong>Intelligence: </strong>{{hero.stat_intelligence}}</p>
+                            <p class="card-text"><strong>Strength: </strong>{{hero.stat_strength}}</p>
+                            <p class="card-text"><strong>Speed: </strong>{{hero.stat_speed}}</p>
+                            <p class="card-text"><strong>Durability: </strong>{{hero.stat_durability}}</p>
+                            <p class="card-text"><strong>Power: </strong>{{hero.stat_power}}</p>
+                            <p class="card-text"><strong>Combat: </strong>{{hero.stat_combat}}</p>
+                        </div>
+                        <br>
                         <a href="/#/hero_add/{{hero}}" type="button" class="btn btn-danger">Yıldız Puanı ile Alma Sistemi Eklenecek!</a>
-
+                        </div>
                     </div>
-                    <div class="col-6 bg-danger">
-                        <img style="width: 100%;" src="{{hero_info[hero]['hero_image']['url']}}" alt="">
                     </div>
-                    <hr>
+                </div>
+                </div>
                 {% endfor %}
+        
             </div>
         </div>
-        <div class="col-3">
+        
+        <div class="col-2">
         </div>
     </div>
 </div>
