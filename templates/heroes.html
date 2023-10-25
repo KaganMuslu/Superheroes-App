@@ -2,7 +2,9 @@
 <title>Superheroes App | Kahramanlarım</title>
 {% endblock style %} {% block body %}
 
-<h3 style="text-align: center; margin-top: 20px;">Superheroes Collection</h3>
+<div style="text-align: center; margin-top: 20px; ">
+  <h3 style="display: inline-block; color: aliceblue; background-image: url(/static/content_bg.jpg); border-radius: 7px; border:5px solid black; border-style: inset;">Superheroes Collection</h3>
+</div>
 
 <div style="margin-top: 15px" class="container text-center">
   <div class="row justify-content-center">
@@ -11,10 +13,10 @@
     <div style="margin-top: 15px;" class="col-10">
 
       {% if not heroes %}
-        <a href="/first_five" class="btn btn-warning">İlk 5 Kahramanını Al!</a>
+        <a href="/first_five" class="btn btn-success">İlk 5 Kahramanını Al!</a>
       {% endif %}
 
-      <div class="row row-cols-1 row-cols-md-4 g-0 justify-content-center bg-info">
+      <div style="background-image: url(/static/content_bg.jpg); background-repeat: round; border-radius: 9px;" class="row row-cols-1 row-cols-md-4 g-0 justify-content-center">
         {% for hero in heroes %}
           <div class="card">
             <img src="{{hero.image}}"
