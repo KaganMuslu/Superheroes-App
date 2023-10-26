@@ -72,7 +72,7 @@ def random_heroes(random_int):
         if hero_id in random_list:
             random_list.remove(hero_id)
 
-    random_ids = random.sample(random_list, 2)
+    random_ids = random.sample(random_list, random_int)
     for random_id in random_ids:                    
         new_hero_user = SUP_User_Superheroes(user_id=current_user.id, superhero_id=random_id)
         db.session.add(new_hero_user)
@@ -105,12 +105,12 @@ def new_hero():
         fark = suanki_zaman_utc - veri_utc
 
         # 2 saat çıkarma ve geriye kalan zamanı al
-        kalan_zaman = timedelta(minutes=15) - fark
+        kalan_zaman = timedelta(minutes=1) - fark
         kalan_saatler = kalan_zaman.seconds // 3600
         kalan_dakikalar = (kalan_zaman.seconds // 60) % 60
 
         # Eğer fark 2 saatten az ise mesaj yazdırma
-        if fark <= timedelta(minutes=15):
+        if fark <= timedelta(minutes=1):
             if kalan_saatler != 0:
                 flash(f'Yeni karakter almaya {kalan_saatler} saat {kalan_dakikalar} dakika kaldı!', category='error')
             else:
