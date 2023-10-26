@@ -110,12 +110,12 @@ def new_hero():
         fark = suanki_zaman_utc - veri_utc
 
         # 2 saat çıkarma ve geriye kalan zamanı al
-        kalan_zaman = timedelta(minutes=1) - fark
+        kalan_zaman = timedelta(minutes=15) - fark
         kalan_saatler = kalan_zaman.seconds // 3600
         kalan_dakikalar = (kalan_zaman.seconds // 60) % 60
 
         # Eğer fark 2 saatten az ise mesaj yazdırma
-        if fark <= timedelta(minutes=1):
+        if fark <= timedelta(minutes=15):
             if kalan_saatler != 0:
                 flash(f'Yeni karakter almaya {kalan_saatler} saat {kalan_dakikalar} dakika kaldı!', category='error')
             else:
