@@ -16,7 +16,7 @@
 {% block body %}
 
 <div style="text-align: center; margin-top: 20px; ">
-    <h3 style="display: inline-block; color: aliceblue; background-image: url(/static/content_bg.jpg); border-radius: 7px; border:5px solid black; border-style: inset;">Superheroes Collection App</h3>
+    <h3 style="display: inline-block; color: black; background-image: url(/static/orange_blur.png); border-radius: 7px; border:5px solid black; border-style: inset;">Superheroes Collection App</h3>
 </div>
 
 <div style="margin-top: 20px;" class="container text-center">
@@ -24,7 +24,7 @@
         <div class="col-2">
         </div>
 
-        <div style="background-image: url(/static/content_bg.jpg); background-repeat: round; border-radius: 9px;" class="col-8">
+        <div style="background-image: url(/static/orange_blur.png); background-repeat:repeat; border-radius: 9px;" class="col-8">
             <div class="row">                
                 <form action="/" class="d-flex" role="search", method="post">
                     <input name="input_hero" class="form-control me-2 text-bg-dark" type="search" placeholder="Kahraman Ara" aria-label="Search">
@@ -51,23 +51,23 @@
                     <div class="card-header">
                         <ul class="nav nav-pills d-none d-md-flex justify-content-evenly" id="myTabs">
                         <li class="nav-item">
-                            <a class="nav-link active" id="hero-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab" href="#hero-info{{hero.id}}">Hero Info</a>
+                            <a class="nav-link active" id="hero-info-tab{{hero_results.index(hero)}}" data-toggle="pill" data-bs-toggle="tab" href="#hero-info{{hero_results.index(hero)}}">Hero Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="bio-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab" href="#bio-info{{hero.id}}">Bio Info</a>
+                            <a class="nav-link" id="bio-info-tab{{hero_results.index(hero)}}" data-toggle="pill" data-bs-toggle="tab" href="#bio-info{{hero_results.index(hero)}}">Bio Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="work-and-connection-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab"
-                            href="#work-and-connection-info{{hero.id}}">Work and Connections Info</a>
+                            <a class="nav-link" id="work-and-connection-info-tab{{hero_results.index(hero)}}" data-toggle="pill" data-bs-toggle="tab"
+                            href="#work-and-connection-info{{hero_results.index(hero)}}">Work and Connections Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="stat-info-tab{{hero.id}}" data-toggle="pill" data-bs-toggle="tab" href="#stat-info{{hero.id}}">Stat Info</a>
+                            <a class="nav-link" id="stat-info-tab{{hero_results.index(hero)}}" data-toggle="pill" data-bs-toggle="tab" href="#stat-info{{hero_results.index(hero)}}">Stat Info</a>
                         </li>
                         </ul>
                     </div>
                     <div class="card-body card border-success">
                         <div class="tab-content">
-                        <div class="tab-pane fade show active" id="hero-info{{hero.id}}">
+                        <div class="tab-pane fade show active" id="hero-info{{hero_results.index(hero)}}">
                             <!-- Hero Information Buraya Eklenir -->
                             <p class="card-text"><strong>Gender: </strong>{{hero.app_gender}}</p>
                             <p class="card-text"><strong>Race: </strong>{{hero.app_race}}</p>
@@ -76,7 +76,7 @@
                             <p class="card-text"><strong>Eye Color: </strong>{{hero.app_eyeColor}}</p>
                             <p class="card-text"><strong>Hair Color: </strong>{{hero.app_hairColor}}</p>
                         </div>
-                        <div class="tab-pane fade" id="bio-info{{hero.id}}">
+                        <div class="tab-pane fade" id="bio-info{{hero_results.index(hero)}}">
                             <!-- Bio Information Buraya Eklenir -->
                             <p class="card-text"><strong>Alter Egos: </strong>{{hero.bio_alterEgos}}</p>
                             <p class="card-text"><strong>Aliases: </strong>{{hero.bio_aliases}}</p>
@@ -85,14 +85,14 @@
                             <p class="card-text"><strong>Publisher: </strong>{{hero.bio_publisher}}</p>
                             <p class="card-text"><strong>Alignment: </strong>{{hero.bio_alignment}}</p>
                         </div>
-                        <div class="tab-pane fade" id="work-and-connection-info{{hero.id}}">
+                        <div class="tab-pane fade" id="work-and-connection-info{{hero_results.index(hero)}}">
                             <!-- Work Information Buraya Eklenir -->
                             <p class="card-text"><strong>Work Occupation: </strong>{{hero.work_occupation}}</p>
                             <p class="card-text"><strong>Work Base: </strong>{{hero.work_base}}</p>
                             <p class="card-text"><strong>Group Affiliation: </strong>{{hero.con_groupAffiliation}}</p>
                             <p class="card-text"><strong>Relatives: </strong>{{hero.con_relatives}}</p>
                         </div>
-                        <div class="tab-pane fade" id="stat-info{{hero.id}}">
+                        <div class="tab-pane fade" id="stat-info{{hero_results.index(hero)}}">
                             <!-- Stat Information Buraya Eklenir -->
                             <p class="card-text"><strong>Intelligence: </strong>{{hero.stat_intelligence}}</p>
                             <p class="card-text"><strong>Strength: </strong>{{hero.stat_strength}}</p>
@@ -117,6 +117,7 @@
         </div>
     </div>
 </div>
+<br>
 
 
 

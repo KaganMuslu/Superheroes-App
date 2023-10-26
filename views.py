@@ -21,7 +21,8 @@ def home():
     return render_template('index.html', user=current_user)
 
 
-@views.route('/hero_add/<hero_id>') #Yıldız Puanı ile Alma Sistemi Eklenecek! (DİKKAT)
+#Yıldız Puanı ile Alma Sistemi Eklenecek! (DİKKAT)
+@views.route('/hero_add/<hero_id>')
 def hero_add(hero_id):
     req = requests.get(f'https://superheroapi.com/api/2689056404570124/{hero_id}').json()
     new_hero_db = SUP_Superheroes(superhero_id=hero_id, name = req['name'],
@@ -66,18 +67,16 @@ def random_heroes(random_int):
         hero_info = SUP_Superheroes.query.filter_by(id=hero.superhero_id).first()
         hero_id_list.append(hero_info.id)
 
-    x = 0
-    while x < random_int:
-        random_id = random.randint(1,563)
-        if random_id not in hero_id_list:                    
-            new_hero_user = SUP_User_Superheroes(user_id=current_user.id, superhero_id=random_id)
-            db.session.add(new_hero_user)
-            x += 1
-            hero_id_list.append(random_id)
-            new_hero_id_list.append(random_id)
-        else:
-            print(random_id)
-            print('Var lan bu hero!')
+    random_list = list(range(1, 563))
+    for hero_id in hero_id_list:
+        if hero_id in random_list:
+            random_list.remove(hero_id)
+
+    random_ids = random.sample(random_list, 2)
+    for random_id in random_ids:                    
+        new_hero_user = SUP_User_Superheroes(user_id=current_user.id, superhero_id=random_id)
+        db.session.add(new_hero_user)
+        new_hero_id_list.append(random_id)
 
     db.session.commit()
 
