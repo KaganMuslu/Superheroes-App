@@ -16,8 +16,12 @@ def home():
             flash('Aranacak kelime boş olamaz!', category='error')
         else:
             hero_info = SUP_Superheroes.query.filter(SUP_Superheroes.name.ilike(f'%{hero_name}%')).all()
-            return render_template('index.html', hero_results=hero_info, user=current_user)
-        
+
+            if len(hero_info) > 0:
+                return render_template('index.html', hero_results=hero_info, user=current_user)
+            else:
+                flash('Aranan kahraman bulunamadı! Bir daha aramak için farklı karakterleri (-, boşluk) kullanmayı deneyin.', category='error')
+
     return render_template('index.html', user=current_user)
 
 
