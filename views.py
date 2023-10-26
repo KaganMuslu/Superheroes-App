@@ -142,9 +142,12 @@ def heroes_new(new_heroes):
         hero_list.append(hero_info)
 
     new_heroes = list(new_heroes.strip('[]').split(', '))
-    new_heroes = [int(item) for item in new_heroes]
+    
+    new_heroes_as_int = []
+    for item in new_heroes:
+        new_heroes_as_int.append(int(item))
 
-    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=new_heroes)
+    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=new_heroes_as_int)
 
 
 @views.route('/account')
