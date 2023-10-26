@@ -66,11 +66,14 @@ def random_heroes(random_int):
 
     heroes_query = SUP_User_Superheroes.query.filter_by(user_id=current_user.id).all()
     hero_id_list = []
+    hero_list = []
     new_hero_id_list = []
 
     for hero in heroes_query:
         hero_info = SUP_Superheroes.query.filter_by(id=hero.superhero_id).first()
         hero_id_list.append(hero_info.id)
+        hero_list.append(hero_info)
+
 
     random_list = list(range(1, 563))
     for hero_id in hero_id_list:
@@ -85,7 +88,8 @@ def random_heroes(random_int):
 
     db.session.commit()
 
-    return redirect(url_for('views.heroes_new', new_heroes=new_hero_id_list))
+
+    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=new_hero_id_list)
 
 
 # EARNING FIRST FIVE HERO
@@ -132,23 +136,6 @@ def new_hero():
         return redirect(url_for('views.heroes'))
 
 
-# NEW HEROES FINDER FOR "NEW" HTML TAG
-@views.route('/heroes/<new_heroes>')
-def heroes_new(new_heroes):
-    heroes_query = SUP_User_Superheroes.query.filter_by(user_id=current_user.id).all()
-    hero_list = []
-
-    for hero in heroes_query:
-        hero_info = SUP_Superheroes.query.filter_by(id=hero.superhero_id).first()
-        hero_list.append(hero_info)
-
-    decoded_list = unquote(new_heroes)
-    decoded_list = json.loads(decoded_list)
-
-
-    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=decoded_list)
-
-
 @views.route('/account')
 def account():
     return render_template('account.html', user=current_user)
@@ -162,6 +149,7 @@ def about():
 @views.route('/contact')
 def contact():
     return render_template('contact.html', user=current_user)
+
 
 @views.route('/send_contact', methods=['GET', 'POST'])
 def send_contact():
