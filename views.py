@@ -11,11 +11,11 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET','POST'])
 def home():
     if request.method == 'POST':
-        hero_name = request.form.get('input_hero')
+        hero_name = request.form.get('input_hero').strip()
         if hero_name == '':
             flash('Aranacak kelime boş olamaz!', category='error')
         else:
-            hero_info = SUP_Superheroes.query.filter(SUP_Superheroes.name.like(f'%{hero_name}%')).all()
+            hero_info = SUP_Superheroes.query.filter(SUP_Superheroes.name.ilike(f'%{hero_name}%')).all()
             return render_template('index.html', hero_results=hero_info, user=current_user)
         
     return render_template('index.html', user=current_user)
