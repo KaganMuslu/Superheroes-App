@@ -4,6 +4,7 @@ from flask_login import current_user
 from models import SUP_User_Superheroes, SUP_Superheroes, SUP_Contact
 from app import db
 from datetime import datetime, timedelta, timezone
+from urllib.parse import unquote
 
 views = Blueprint('views', __name__)
 
@@ -141,13 +142,9 @@ def heroes_new(new_heroes):
         hero_info = SUP_Superheroes.query.filter_by(id=hero.superhero_id).first()
         hero_list.append(hero_info)
 
-    new_heroes = list(new_heroes.strip('[]').split(', '))
-    
-    new_heroes_as_int = []
-    for item in new_heroes:
-        new_heroes_as_int.append(int(item))
+    decoded_list = unquote(new_heroes)
 
-    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=new_heroes_as_int)
+    return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=decoded_list)
 
 
 @views.route('/account')
