@@ -1,7 +1,7 @@
 import requests, random
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user
-from models import SUP_User_Superheroes, SUP_Superheroes
+from models import SUP_User_Superheroes, SUP_Superheroes, SUP_Contact
 from app import db
 from datetime import datetime, timedelta, timezone
 
@@ -160,3 +160,20 @@ def about():
 @views.route('/contact')
 def contact():
     return render_template('contact.html', user=current_user)
+
+@views.route('/send_contact', methods=['GET', 'POST'])
+def send_contact():
+
+    message = request.form.get('message_area')
+    if current_user.is_authenticated == True:
+        new_message = SUP_Contact(user_id=current_user.id, message=message)
+        db.session.add(new_message)
+        db.session.commit()
+        flash('Geribildirim Gönderildi!', category='success')
+    else:
+        new_message = SUP_Contact(user_id=0, message=message)
+        db.session.add(new_message)
+        db.session.commit()
+        flash('Geribildirim Gönderildi!', category='success')
+
+    return redirect(url_for('views.home'))

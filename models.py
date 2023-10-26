@@ -48,3 +48,9 @@ class SUP_User_Superheroes(db.Model):
     user_id = db.Column(db.Integer)
     superhero_id = db.Column(db.Integer)
     hero_get_date = db.Column(db.DateTime(timezone=True), default=func.now())
+
+class SUP_Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    message = db.Column(db.String)
+    message_date = db.Column(db.DateTime(timezone=True), default=func.now())
