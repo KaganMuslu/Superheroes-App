@@ -1,4 +1,4 @@
-import requests, random
+import requests, random, json
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user
 from models import SUP_User_Superheroes, SUP_Superheroes, SUP_Contact
@@ -143,6 +143,8 @@ def heroes_new(new_heroes):
         hero_list.append(hero_info)
 
     decoded_list = unquote(new_heroes)
+    decoded_list = json.loads(decoded_list)
+
 
     return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=decoded_list)
 
