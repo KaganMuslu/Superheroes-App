@@ -1,4 +1,4 @@
-import requests, random
+import requests, random, re
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user
 from models import SUP_User_Superheroes, SUP_Superheroes, SUP_Contact
@@ -141,8 +141,9 @@ def heroes_new(new_heroes):
         hero_info = SUP_Superheroes.query.filter_by(id=hero.superhero_id).first()
         hero_list.append(hero_info)
 
-    new_heroes = list(new_heroes.strip('[]').split(', '))
-    new_heroes = [int(item) for item in new_heroes]
+    new_heroes = re.sub(r'[\[\]]', '', new_heroes)
+    new_heroes = new_heroes.split(',')
+    new_heroes = [int(item.strip()) for item in new_heroes]
 
     return render_template('heroes.html', user=current_user, heroes=hero_list, new_heroes=new_heroes)
 
