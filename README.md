@@ -1,6 +1,6 @@
 # Superheroes-App
 
-![Ekran görüntüsü 2023-10-26 164353](https://github.com/KaganMuslu/Superheroes-App/assets/71410113/e108887b-e786-479a-8a25-202145936652)
+![Ekran görüntüsü 2023-10-28 173717](https://github.com/KaganMuslu/Superheroes-App/assets/71410113/2169578f-4251-4c3b-a0f8-f3fce8649be2)
 
 Projenin amacı, kullanıcılara Süperkahramanlar koleksiyonunu keşfetme ve kendi istedikleri kahraman koleksiyonunu oluşturma fırsatı sunmaktır. Kullanıcılar, uygulama aracılığıyla istedikleri kahramanları edinebilir, kendi koleksiyonlarını oluşturabilir ve bu süperkahramanlar hakkında detaylı bilgilere erişebilirler.
 
