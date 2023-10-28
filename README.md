@@ -1,5 +1,7 @@
 # Superheroes-App
 
+![Ekran görüntüsü 2023-10-26 164353](https://github.com/KaganMuslu/Superheroes-App/assets/71410113/e108887b-e786-479a-8a25-202145936652)
+
 Projenin amacı, kullanıcılara Süperkahramanlar koleksiyonunu keşfetme ve kendi istedikleri kahraman koleksiyonunu oluşturma fırsatı sunmaktır. Kullanıcılar, uygulama aracılığıyla istedikleri kahramanları edinebilir, kendi koleksiyonlarını oluşturabilir ve bu süperkahramanlar hakkında detaylı bilgilere erişebilirler.
 
 Proje, kullanıcıların siteye giriş yapabileceği veya yeni hesap oluşturabileceği bir kullanıcı giriş ve kayıt olma sistemi içermektedir. Bu sayede kullanıcılar kendi profillerini oluşturabilir, koleksiyonlarını kaydedebilir ve istedikleri kahramanları seçebilirler.
@@ -15,3 +17,5 @@ Frontend tarafında <a href="https://www.w3schools.com/html/html_css.asp">HTML, 
 Proje, <a href="https://vercel.com">Vercel</a>'de ücretsiz hosting hizmeti ile canlıya alınmış ve <a href="https://www.postgresql.org">PostgreSQL</a> veritabanı da ücretsiz olarak Render.com üzerinde barındırılmıştır. Bu sayede kullanıcılar herhangi bir ücret ödemeden uygulamayı kullanabilirler.
 
 Projenin amacı, süperkahraman koleksiyonlarına ilgi duyan herkesin bu dünyayı keşfetmesine ve kendi özel koleksiyonlarını oluşturmasına olanak sağlamaktır.
+
+![Ekran görüntüsü 2023-10-26 164558](https://github.com/KaganMuslu/Superheroes-App/assets/71410113/7bd68570-b9e6-4a10-8cd5-a44ec842cfed)
